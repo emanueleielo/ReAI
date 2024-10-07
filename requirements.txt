@@ -1,0 +1,8 @@
+langchain-core
+langgraph
+langchain-openai==0.1.23
+PyPDF2==3.0.1
+python-dotenv
+fastapi
+python-multipart
+uvicorn
