@@ -4,6 +4,8 @@ from backend.agent.old_structure import EXCLUDED_FOLDERS
 from backend.agent.read import VALID_FILE_EXTENSIONS
 
 
+import os
+
 def create_files_and_folders(structure: dict, base_path='new_project') -> list:
     """
     Recursively creates files and folders based on the given structure.
@@ -27,16 +29,18 @@ def create_files_and_folders(structure: dict, base_path='new_project') -> list:
         # Construct the current path based on the base path and the current folder
         current_path = os.path.join(base_path, key)
 
-        # If the value is a list or the value is str and finish with VALID_FILE_EXTENSIONS, it represents files inside the current directory
-        if isinstance(value, list) or (isinstance(value, str) and value.endswith(tuple(VALID_FILE_EXTENSIONS))) or (
-                isinstance(value, dict) and 'files' in value and isinstance(value['files'], list)):          # Process the files directly in the current folder (base_path)
-            for file_info in value:
+        # Handle 'files' key
+        if 'files' in value and isinstance(value['files'], list):
+            for file_info in value['files']:
                 if isinstance(file_info, dict):  # Ensure it's a dictionary representing a file
                     file_name = file_info['file_name']
                     file_description = file_info['file_description']
 
                     # Construct the full file path
-                    file_path = os.path.join(base_path, file_name)
+                    file_path = os.path.join(current_path, file_name)
+
+                    # Ensure that the directory for the file exists before writing the file
+                    os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
                     # Create an empty file
                     with open(file_path, 'w') as f:

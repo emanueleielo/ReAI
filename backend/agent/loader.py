@@ -3,13 +3,16 @@ import os
 from functools import lru_cache
 import time
 import requests
-import requests
 from PyPDF2 import PdfReader
 from io import BytesIO
+import os
+
+import io
 
 CACHE_DURATION = 24 * 60 * 60
 
 import zipfile
+
 
 def read_file_content(file_path: str) -> str:
     """
@@ -29,6 +32,7 @@ def read_file_content(file_path: str) -> str:
             return file.read()
     except FileNotFoundError:
         return f"Error: The file '{file_path}' does not exist."
+
 
 def unzip_file(zip_path: str, extract_to: str) -> None:
     """
@@ -52,6 +56,7 @@ def unzip_file(zip_path: str, extract_to: str) -> None:
         print(f"Error: The file '{zip_path}' does not exist.")
     except zipfile.BadZipFile:
         print(f"Error: The file '{zip_path}' is not a valid zip file.")
+
 
 def time_based_cache(seconds):
     def wrapper_cache(func):
@@ -88,7 +93,6 @@ def load_github_file(url):
 
 @time_based_cache(CACHE_DURATION)
 def load_pdf_file(url):
-
     # Scaricare il PDF dal URL
     response = requests.get(url)
     if response.status_code == 200:
@@ -109,21 +113,14 @@ def load_pdf_file(url):
         print(f"Errore nel download del PDF. Status code: {response.status_code}")
 
 
-import zipfile
-import io
-
-
-def zip_project_folder(folder_path: str) -> str:
+def zip_project_folder(folder_path: str) -> io.BytesIO:
     """
     Zips the contents of the folder and returns it as a BytesIO object.
     The name of the zip file will be the same as the folder name being zipped.
 
     :param folder_path: Path to the folder to zip.
-    :return: A tuple containing a BytesIO object of the zipped folder and the name of the zip file.
+    :return: A BytesIO object of the zipped folder.
     """
-    # Assicurati che il percorso sia relativo alla directory superiore (../new_project)
-    folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', folder_path))
-
     # Controlla se la cartella esiste, altrimenti lancia un'eccezione
     if not os.path.exists(folder_path):
         raise FileNotFoundError(f"The folder {folder_path} does not exist.")
@@ -141,4 +138,5 @@ def zip_project_folder(folder_path: str) -> str:
                 zipf.write(file_path, os.path.relpath(file_path, folder_path))  # Use relative paths
 
     memory_file.seek(0)  # Reset the buffer position to the beginning
-    return zip_file_name
+
+    return memory_file
