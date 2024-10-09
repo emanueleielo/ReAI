@@ -4,6 +4,8 @@ from .model import _get_model
 from .state import AgentState
 from .utils import extract_code
 import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
 
 prompt = """You are tasked to write documentation as the user request.
 The documentation that you write must be contextualized, because this code and documentation belong to a big project and must work in relation with other file.
@@ -42,9 +44,8 @@ prompt_user = """This is the description of the code that you must generate docu
 
 def write_documentation(state: AgentState, files) -> str:
     """
-    Generate a consolidated documentation text based on the files' description.
-    File is a list of dictionaries with the following keys: full_path, file_description, code.
-    The doc is generated using the LLM and accumulated in a single text variable.
+    Generate a consolidated documentation text based on the files' description in a multi-threaded way.
+    Each file is processed on a separate thread, and the documentation is accumulated in a single text variable.
 
     :param state: Contains the current agent's state, including file descriptions.
     :param files: A list of dictionaries, each containing 'full_path', 'file_description', and 'code'.
@@ -57,13 +58,12 @@ def write_documentation(state: AgentState, files) -> str:
     # Variable to hold the entire documentation text
     full_documentation_text = ""
 
-    # Iterate over the files
-    for file in files:
+    def process_file(file):
         full_path = file['full_path']
         file_description = file['file_description']
         file_code = file['code']
 
-        # Prepare the LLM prompt for generating doc
+        # Prepare the LLM prompt for generating documentation
         messages = [
             {"role": "system", "content": prompt.format(TECH_LANGUAGE=state.get('input').get('tech_language'),
                                                         TECH_FRAMEWORK=state.get('input').get('tech_framework'),
@@ -73,8 +73,8 @@ def write_documentation(state: AgentState, files) -> str:
              "content": prompt_user.format(CODE=file_code, CODE_FULL_PATH=full_path, CODE_DESCRIPTION=file_description)}
         ]
 
-        # Invoke the model to generate the doc based on the file description
         try:
+            # Invoke the model to generate the documentation based on the file description
             response = model.invoke(messages)
             documentation = response.content
 
@@ -85,14 +85,20 @@ def write_documentation(state: AgentState, files) -> str:
             file_documentation += f"**Path**: {full_path}\n\n"
             file_documentation += f"{documentation}\n\n"
 
-            # Append the file documentation to the full documentation text
-            full_documentation_text += file_documentation
-
-            print(f"Documentation generated for {full_path}")
+            return file_documentation
 
         except Exception as e:
             print(f"Error generating documentation for {full_path}: {e}")
-            continue
+            return ""
+
+    # Use ThreadPoolExecutor to process files in parallel
+    with ThreadPoolExecutor() as executor:
+        # Submit each file for processing in a separate thread
+        futures = {executor.submit(process_file, file): file for file in files}
+
+        # Wait for all threads to complete and collect the results
+        for future in as_completed(futures):
+            full_documentation_text += future.result()  # Append the generated documentation
 
     return full_documentation_text
 
