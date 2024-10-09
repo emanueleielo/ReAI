@@ -1,4 +1,5 @@
 import functools
+import os
 from functools import lru_cache
 import time
 import requests
@@ -106,3 +107,30 @@ def load_pdf_file(url):
         print(extracted_text)
     else:
         print(f"Errore nel download del PDF. Status code: {response.status_code}")
+
+
+import zipfile
+import io
+
+
+def zip_project_folder(folder_path: str) -> str:
+    """
+    Zips the contents of the folder and returns it as a BytesIO object along with the zip file name.
+    The name of the zip file will be the same as the folder name being zipped.
+
+    :param folder_path: Path to the folder to zip.
+    :return: A tuple containing a BytesIO object of the zipped folder and the name of the zip file.
+    """
+    memory_file = io.BytesIO()
+
+    folder_name = os.path.basename(os.path.normpath(folder_path))  # Get the folder name
+    zip_file_name = f"{folder_name}.zip"  # Name the zip file based on the folder name
+
+    with zipfile.ZipFile(memory_file, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        for root, dirs, files in os.walk(folder_path):
+            for file in files:
+                file_path = os.path.join(root, file)
+                zipf.write(file_path, os.path.relpath(file_path, folder_path))  # Use relative paths
+
+    memory_file.seek(0)  # Reset the buffer position to the beginning
+    return zip_file_name

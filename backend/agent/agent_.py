@@ -18,6 +18,7 @@ from agent.write_code import write_code
 import logging
 
 
+
 # Define the nodes
 def start(input_: InputState) -> dict:
     logging.info("Starting the process")
@@ -112,6 +113,7 @@ def generate_files(state: AgentState) -> dict:
 def start_application_and_test(state: AgentState) -> dict:
     # Logic to start the application and test with a curl
     output = write_startup(state, state.get('generated_files'))
+
     return {"output": output}
 
 
