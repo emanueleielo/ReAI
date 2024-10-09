@@ -28,8 +28,8 @@ def create_files_and_folders(structure: dict, base_path='new_project') -> list:
         current_path = os.path.join(base_path, key)
 
         # If the value is a list or the value is str and finish with VALID_FILE_EXTENSIONS, it represents files inside the current directory
-        if isinstance(value, list) or (isinstance(value, str) or value.endswith(tuple(VALID_FILE_EXTENSIONS))) or (
-                isinstance(value, dict) and 'files' in value and isinstance(value['files'], list)):            # Process the files directly in the current folder (base_path)
+        if isinstance(value, list) or (isinstance(value, str) and value.endswith(tuple(VALID_FILE_EXTENSIONS))) or (
+                isinstance(value, dict) and 'files' in value and isinstance(value['files'], list)):          # Process the files directly in the current folder (base_path)
             for file_info in value:
                 if isinstance(file_info, dict):  # Ensure it's a dictionary representing a file
                     file_name = file_info['file_name']
