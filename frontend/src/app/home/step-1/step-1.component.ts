@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Configuration} from "../../models/configuration/configuration";
 
 @Component({
   selector: 'app-step-1',
@@ -6,12 +7,13 @@ import {Component, EventEmitter, Output} from '@angular/core';
   styleUrls: ['./step-1.component.css']
 })
 export class Step1Component {
+  @Input() loading = false;
+  @Output() startRefactoring = new EventEmitter<Configuration>();
+  configuration: Configuration = {} as Configuration;
 
-  @Output() nextStep = new EventEmitter<void>();
-  configuration: {description: string, stack: string, file: File[]} = {} as any;
-
-  clickNext() {
-    this.nextStep.emit();
+  start() {
+    if (this.configuration.tech_language && this.configuration.tech_framework && this.configuration.zip_file) {
+      this.startRefactoring.emit(this.configuration)
+    }
   }
-
 }

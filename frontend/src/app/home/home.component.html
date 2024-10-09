@@ -1,11 +1,11 @@
 <div class="home-wrap">
   <ng-container *ngIf="step === 1">
-    <app-step-1 (nextStep)="nextStep()"></app-step-1>
+    <app-step-1 [loading]="loading" (startRefactoring)="startRefactoring($event)"></app-step-1>
   </ng-container>
   <ng-container *ngIf="step === 2">
-    <app-step-2 (nextStep)="nextStep()"></app-step-2>
+    <app-step-2 [loading]="loading" [loadingMessage]="loadingMessage" (nextStep)="nextStep()"></app-step-2>
   </ng-container>
   <ng-container *ngIf="step === 3">
-    <app-step-3 (restart)="restart()"></app-step-3>
+    <app-step-3 [downloadFilePath]=downloadFilePath (restart)="restart()"></app-step-3>
   </ng-container>
 </div>

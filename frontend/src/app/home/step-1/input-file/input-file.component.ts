@@ -7,8 +7,8 @@ import {Component, EventEmitter, Output} from '@angular/core';
 })
 export class InputFileComponent {
 
-  @Output() emitFile = new EventEmitter<File[]>();
-  selectedFile: File[] = [];
+  @Output() emitFile = new EventEmitter<File>();
+  selectedFile!: File;
 
   openFileInput(fileInput: HTMLInputElement) {
     fileInput.click();
@@ -17,10 +17,8 @@ export class InputFileComponent {
   handleFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files) {
-      Array.from(input.files).forEach(file => {
-        this.selectedFile.push(file);
-        this.emitFile.emit(this.selectedFile);
-      });
+      this.selectedFile = input.files[0];
+      this.emitFile.emit(this.selectedFile);
     }
   }
 
@@ -36,8 +34,8 @@ export class InputFileComponent {
     return `${size.toFixed(2)} ${units[index]}`;
   }
 
-  removeFile(index: number) {
-    this.selectedFile.splice(index, 1);
+  removeFile() {
+    this.selectedFile = null as any;
     this.emitFile.emit(this.selectedFile);
   }
 

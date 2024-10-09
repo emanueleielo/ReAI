@@ -4,23 +4,34 @@
   </div>
   <div class="card-body">
     <div class="form-group mb-3">
-      <label>Description</label>
-      <textarea class="form-control" [(ngModel)]="configuration.description" rows="3" placeholder="Enter description of the project"></textarea>
-    </div>
-    <div class="form-group mb-3">
-      <label>Stack</label><small *ngIf="!configuration.stack" class="text-danger ms-2">Required</small>
-      <select class="form-control" [(ngModel)]="configuration.stack">
+      <label>Stack</label><small *ngIf="!configuration.tech_language" class="text-danger ms-2">Required</small>
+      <select [disabled]="loading" class="form-control" [(ngModel)]="configuration.tech_language">
         <option [ngValue]="undefined" selected disabled>Select stack output</option>
         <option [ngValue]="'Python'">Python</option>
       </select>
     </div>
+    <div class="form-group mb-3">
+      <label>Framework</label><small *ngIf="!configuration.tech_framework" class="text-danger ms-2">Required</small>
+      <select [disabled]="loading" class="form-control" [(ngModel)]="configuration.tech_framework">
+        <option [ngValue]="undefined" selected disabled>Select framework output</option>
+        <option [ngValue]="'FastAPI'">Fast API</option>
+      </select>
+    </div>
+    <div class="form-group mb-3">
+      <label>Design pattern</label>
+      <textarea [disabled]="loading" class="form-control" [(ngModel)]="configuration.design_pattern" rows="3" placeholder="Enter the design patter of the project"></textarea>
+    </div>
+    <div class="form-group mb-3">
+      <label>Other requirements</label>
+      <textarea [disabled]="loading" class="form-control" [(ngModel)]="configuration.other_requirements" rows="3" placeholder="Enter other requirements of the project"></textarea>
+    </div>
     <div class="mb-3">
-      <app-input-file (emitFile)="configuration.file = $event"></app-input-file>
+      <app-input-file (emitFile)="configuration.zip_file = $event"></app-input-file>
     </div>
   </div>
   <div class="card-footer d-flex justify-content-center">
-    <ng-container *ngIf="configuration.stack && configuration.file?.length">
-      <button (click)="clickNext()" class="btn btn-primary"><i class="fa-solid fa-rocket me-2"></i>Do refactor</button>
+    <ng-container *ngIf="configuration.tech_language && configuration.tech_framework && configuration.zip_file">
+      <button [disabled]="loading" (click)="start()" class="btn btn-primary"><i class="me-2" [ngClass]="loading?'fa-solid fa-spinner fa-spin':'fa-solid fa-rocket'"></i>Do refactor</button>
     </ng-container>
   </div>
 </div>

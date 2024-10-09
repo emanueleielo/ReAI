@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-step-2',
@@ -7,29 +7,12 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 })
 export class Step2Component implements OnInit{
 
-  loading: boolean = false;
-  loadingMessage = 'Loading...';
+  @Input() loading: boolean = false;
+  @Input() loadingMessage!: string;
 
   @Output() nextStep = new EventEmitter<void>();
 
   ngOnInit(): void {
-    this.startLoading();
-  }
-
-  startLoading() {
-    this.loading = true;
-    this.loadingMessage = 'Loading...';
-    setTimeout(() => {
-      this.loadingMessage = 'Still loading...';
-      setTimeout(() => {
-        this.loadingMessage = 'Almost there...';
-        setTimeout(() => {
-          this.loadingMessage = 'Done!';
-          this.loading = false;
-          this.nextStep.emit();
-        }, 2000);
-      }, 2000);
-    }, 2000);
   }
 
 }

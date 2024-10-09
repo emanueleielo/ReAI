@@ -7,6 +7,6 @@ import {Component, Input} from '@angular/core';
 })
 export class LoaderComponent{
 
-  @Input() loadingMessage: string = 'Loading...';
+  @Input() loadingMessage: string | undefined = undefined;
 
 }

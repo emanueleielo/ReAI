@@ -1,0 +1,15 @@
+@keyframes fadeBlink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.blinking-text {
+  animation: fadeBlink 1s infinite; /* Durata dell'animazione di 1 secondo e ripetizione infinita */
+}
