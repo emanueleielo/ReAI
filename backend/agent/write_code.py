@@ -36,7 +36,6 @@ You generate code using markdown {TECH_LANGUAGE} syntax, eg:
 IMPORTANT: Remember, only generate one of those code blocks!"
 """
 
-
 prompt_user = """This is the description of the files that you must generate code for:
 <code_file_name>
 {CODE_FULL_PATH}
@@ -45,6 +44,8 @@ prompt_user = """This is the description of the files that you must generate cod
 {CODE_DESCRIPTION}
 </code_description>
 """
+
+
 def write_code(state: AgentState, files) -> str:
     """
     Generate code based on the files description. File is a list of dictionaries with the following keys: full_path, file_description.
@@ -61,43 +62,49 @@ def write_code(state: AgentState, files) -> str:
 
     # Iterate over the files
     for file in files:
-        full_path = file['full_path']
-        file_description = file['file_description']
+        if isinstance(file, dict):
+            full_path = file['full_path']
+            file_description = file['file_description']
 
-        # Prepare the LLM prompt for generating code
-        messages = [
-            {"role": "system", "content": prompt.format(TECH_LANGUAGE=state.get('input').get('tech_language'),
-                                                        TECH_FRAMEWORK=state.get('input').get('tech_framework'),
-                                                        REQUIREMENTS=state.get('requirements'),
-                                                        PROJECT_STRUCTURE=state.get('new_structure_pretty'),
-                                                        TECH_REQUIREMENTS=state.get('technical_requirements'))},
-            {"role": "user", "content": prompt_user.format(CODE_DESCRIPTION=file_description, CODE_FULL_PATH=full_path)}
-        ]
+            # Prepare the LLM prompt for generating code
+            messages = [
+                {"role": "system", "content": prompt.format(TECH_LANGUAGE=state.get('input').get('tech_language'),
+                                                            TECH_FRAMEWORK=state.get('input').get('tech_framework'),
+                                                            REQUIREMENTS=state.get('requirements'),
+                                                            PROJECT_STRUCTURE=state.get('new_structure_pretty'),
+                                                            TECH_REQUIREMENTS=state.get('technical_requirements'))},
+                {"role": "user",
+                 "content": prompt_user.format(CODE_DESCRIPTION=file_description, CODE_FULL_PATH=full_path)}
+            ]
 
-        try:
-            # Invoke the model to generate the code based on the file description
-            response = model.invoke(messages)
+            try:
+                # Invoke the model to generate the code based on the file description
+                response = model.invoke(messages)
 
-            #if start with ```tech_language use extract_code to get the code or use the response.content
-            if response.content.startswith(f"```{state.get('input').get('tech_language')}"):
-                generated_code = extract_code(response.content, state.get('input').get('tech_language'))[0]
-            else:
-                generated_code = response.content
+                # if start with ```tech_language use extract_code to get the code or use the response.content
+                if response.content.startswith(f"```{state.get('input').get('tech_language')}"):
+                    generated_code = extract_code(response.content, state.get('input').get('tech_language'))[0]
+                else:
+                    generated_code = response.content
 
-            file['code'] = generated_code
+                file['code'] = generated_code
 
-            # Ensure the directory exists before writing the file
-            os.makedirs(os.path.dirname(full_path), exist_ok=True)
+                # Ensure the directory exists before writing the file
+                os.makedirs(os.path.dirname(full_path), exist_ok=True)
 
-            # Write the generated code to the file
-            with open(full_path, 'w') as f:
-                f.write(generated_code)
+                # Write the generated code to the file
+                with open(full_path, 'w') as f:
+                    f.write(generated_code)
 
-            print(f"Code written to {full_path}")
+                print(f"Code written to {full_path}")
 
-        except Exception as e:
-            # Log the error but continue with the next file
-            print(f"Error generating or writing code for {full_path}: {e}")
-            continue  # Skip to the next file
+            except Exception as e:
+                # Log the error but continue with the next file
+                print(f"Error generating or writing code for {full_path}: {e}")
+                continue  # Skip to the next file
+        else:
+            print(f"Unexpected type for file: {type(file)}. {file} | Skipping...")
+            continue
+
 
     return files
