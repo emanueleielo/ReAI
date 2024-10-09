@@ -35,7 +35,7 @@ You must use a specific language and framework for this task.
 LANGUAGE: {TECH_LANGUAGE}
 FRAMEWORK: {TECH_FRAMEWORK}
 DESIGN PATTERN: {DESIGN_PATTERN}
-OTHER TECNHICAL REQUIREMENTS: {OTHER_REQUIREMENTS}
+OTHER TECNHICAL REQUIREMENTS (if not provided, you can image it): {OTHER_REQUIREMENTS}
 """
 
 prompt_user_tech = """Requirements of the project:
