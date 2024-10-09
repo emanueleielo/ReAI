@@ -1,0 +1,109 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* varibili colori css */
+:root {
+  --primary-color: #29C3B0;
+  --secondary-color: #2196f3;
+  --background-color: #081626;
+  --header-background: #00010269;
+  --footer-background: #040910;
+  --text-color1: #ffffff;
+  --text-color2: #BFBFBFFF;
+  --text-color-muted: #a3a3a3;
+  --card-background: #00010269;
+  --card-border: #000102;
+  --input-border: transparent;
+  --input-background: #040910;
+}
+
+body {
+ background: #000000;
+  color: var(--text-color2);
+}
+.wrap-container {
+  position: relative;
+  z-index: 1;
+}
+
+.wrap-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('assets/bg2.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  opacity: 0.7; /* Opacità dell'immagine */
+  z-index: -1; /* Mette l'immagine dietro al contenuto */
+}
+.container-app {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* a tag */
+a {
+  color: var(--text-color1);
+}
+a:hover {
+  color: var(--primary-color);
+}
+
+/* card */
+.card {
+  background-color: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px;
+  color: var(--text-color2);
+}
+
+/* form input */
+.form-group label {
+  color: var(--text-color-muted);
+}
+.form-control{
+  border: 1px solid var(--input-border);
+  background-color: var(--input-background);
+  color: var(--text-color2);
+}
+.form-control:focus {
+  border: 1px solid var(--input-border);
+  box-shadow: none !important;
+  background-color: var(--input-background);
+  color: var(--text-color2);
+}
+.form-control::placeholder {
+  color: var(--text-color-muted);
+}
+
+/* button */
+.btn-primary {
+  background-color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  color: var(--text-color1);
+}
+.btn-primary:hover {
+  transform: scale(1.1);
+  background-color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
+  color: var(--text-color1);
+}
+.btn-secondary:hover {
+  transform: scale(1.1);
+  background-color: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
+}

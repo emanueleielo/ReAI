@@ -1,0 +1,72 @@
+.file-input-box {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 10px;
+  width: 600px;
+  height: auto;
+
+  .input-box {
+    padding: 20px;
+    display: grid;
+    place-items: center;
+    border: 2px dashed var(--input-border);
+    border-radius: 5px;
+    margin-bottom: 5px;
+    margin-top: 1rem;
+    cursor: pointer;
+    background: var(--input-background);
+
+    h4 {
+      margin: 0;
+    }
+  }
+
+  small {
+    font-size: 12px;
+    color: var(--text-color-muted);
+  }
+
+  .wrapper-file-section {
+    .selected-files {
+      label {
+        color: var(--text-color-muted);
+      }
+
+      .file-list {
+        overflow-y: auto;
+        list-style-type: none;
+        padding: 0 10px 10px 0;
+        margin: 0;
+        transition: 0.3s all ease-in-out;
+
+        .item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border: 1px solid var(--input-border);
+          border-radius: 5px;
+          padding: 10px;
+          font-size: 14px;
+          background: var(--input-background);
+
+          &:not(:last-child) {
+            margin-bottom: 5px;
+          }
+
+          .remove {
+            display: grid;
+            place-items: center;
+            color: #c0392b;
+            cursor: pointer;
+            transition: 0.3s all ease-in-out;
+
+            &:hover {
+              color: #e74c3c;
+            }
+          }
+        }
+      }
+    }
+  }
+}

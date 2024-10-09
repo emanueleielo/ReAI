@@ -1,0 +1,26 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-center">
+    <h2 class="card-title">Step 1</h2>
+  </div>
+  <div class="card-body">
+    <div class="form-group mb-3">
+      <label>Description</label>
+      <textarea class="form-control" [(ngModel)]="configuration.description" rows="3" placeholder="Enter description of the project"></textarea>
+    </div>
+    <div class="form-group mb-3">
+      <label>Stack</label><small *ngIf="!configuration.stack" class="text-danger ms-2">Required</small>
+      <select class="form-control" [(ngModel)]="configuration.stack">
+        <option [ngValue]="undefined" selected disabled>Select stack output</option>
+        <option [ngValue]="'Python'">Python</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <app-input-file (emitFile)="configuration.file = $event"></app-input-file>
+    </div>
+  </div>
+  <div class="card-footer d-flex justify-content-center">
+    <ng-container *ngIf="configuration.stack && configuration.file?.length">
+      <button (click)="clickNext()" class="btn btn-primary"><i class="fa-solid fa-rocket me-2"></i>Do refactor</button>
+    </ng-container>
+  </div>
+</div>

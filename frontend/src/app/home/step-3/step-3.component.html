@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-center">
+    <h2 class="card-title">Step 3</h2>
+  </div>
+  <div class="card-body p-5">
+    <app-refactor-results [loadingDownload]="loadingDownload"></app-refactor-results>
+  </div>
+  <div *ngIf="!loadingDownload" class="card-footer d-flex" [ngClass]="downloadComplete?'justify-content-between':'justify-content-center'">
+    <button *ngIf="downloadComplete" (click)="restartProcess()" class="btn btn-secondary mx-1"><i class="fa-solid fa-rocket me-2"></i>Start new refactor</button>
+    <button (click)="startDownload()" class="btn btn-primary mx-1"><i class="fa-solid fa-download me-2"></i>Download</button>
+  </div>
+</div>

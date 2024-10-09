@@ -1,0 +1,53 @@
+.loading-container {
+  position: relative;
+  width: 500px;
+}
+
+.loading-container .loading {
+  text-align: center;
+}
+
+.loading-container .loading .text {
+  position: relative;
+  width: 80px;
+  color: #fff;
+  text-align: right;
+  letter-spacing: 1px;
+}
+
+.loading-container .loading .percent {
+  position: relative;
+  top: 10px;
+  height: 25px;
+  background: var(--input-background);
+  border-radius: 10px;
+  margin: 0 10px;
+  box-shadow: inset 0 0 10px #000;
+  overflow: hidden;
+}
+
+.loading-container .loading .percent .progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(45deg, #29C3B0, #2196f3);
+  animation: animate 2.5s ease-in-out infinite;
+}
+
+@keyframes animate {
+  0% {
+    width: 0;
+    left: 0;
+  }
+  50% {
+    width: 100%;
+    left: 0;
+  }
+  100% {
+    width: 100%;
+    left: 100%;
+  }
+}

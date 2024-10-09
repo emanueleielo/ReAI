@@ -1,0 +1,28 @@
+<div class="file-input-box">
+  <div *ngIf="!selectedFile.length" class="wrapper-file-input">
+    <div class="input-box" (click)="openFileInput(fileInput)">
+      <h4>
+        <i class="fa-solid fa-folder-open me-2"></i>
+        Choose File to upload
+      </h4>
+      <input #fileInput type="file" hidden (change)="handleFileChange($event)" />
+    </div>
+    <small>Files Supported: PDF, TEXT, DOC, DOCX, JPG, PNG, SVG</small>
+  </div>
+
+  <div *ngIf="selectedFile.length" class="wrapper-file-section">
+    <div class="selected-files">
+      <label>Select File</label>
+      <ul class="file-list" [style.maxHeight]="selectedFile.length ? '220px' : 'auto'">
+        <li class="item" *ngFor="let file of selectedFile; let index = index">
+              <span class="name">
+                {{ file.name }} ({{ formatFileSize(file.size) }})
+              </span>
+          <div class="remove" (click)="removeFile(index)">
+            <i class="fa-solid fa-trash-can"></i>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

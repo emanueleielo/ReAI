@@ -1,0 +1,112 @@
+.folder {
+  background-color: var(--secondary-color);
+  position: relative;
+  width: 92px;
+  height: 64px;
+  display: block;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.folder-tab {
+  position: absolute;
+  height: 10px;
+  left: 0;
+  bottom: 100%;
+  display: block;
+  width: 40%;
+  border-top-left-radius: 8px;
+  background-color: inherit;
+  &:after {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 0;
+    left: calc(100% - 10px);
+    border-bottom: 10px solid var(--secondary-color);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+  }
+}
+
+.folder-icn {
+  padding-top: 12px;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.downloading {
+  width: 30px;
+  height: 32px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+.custom-arrow {
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -7px;
+  background-color: var(--text-color1);
+
+  -webkit-animation-name: downloading;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite;
+  animation-name: downloading;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+
+  &:after {
+    content: ''; position: absolute; display: block;
+    top: 100%;
+    left: -9px;
+    border-top: 15px solid var(--text-color1);
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+  }
+}
+.bar {
+  width: 30px;
+  height: 4px;
+  background-color: var(--text-color1);
+  margin: 0 auto;
+}
+
+@-webkit-keyframes downloading {
+  0% {
+    top: 0;
+    opacity: 1;
+  }
+  50% {
+    top: 110%;
+    opacity: 0;
+  }
+  52% {
+    top: -110%;
+    opacity: 0;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}
+@keyframes downloading {
+  0% {
+    top: 0;
+    opacity: 1;
+  }
+  50% {
+    top: 110%;
+    opacity: 0;
+  }
+  52% {
+    top: -110%;
+    opacity: 0;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}
