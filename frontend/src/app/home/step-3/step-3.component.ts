@@ -28,7 +28,7 @@ export class Step3Component {
       URL.revokeObjectURL(blobUrl); // Libera la memoria
       this.loadingDownload = false;
       this.downloadComplete = true;
-    }, (error) => {
+    }, (error:any) => {
       this.loadingDownload = false;
       console.error('error', error);
     });
