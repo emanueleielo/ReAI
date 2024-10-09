@@ -1,8 +1,8 @@
 import re
 
-from backend.agent.model import _get_model
-from backend.agent.state import AgentState
-from backend.agent.utils import extract_code
+from .model import _get_model
+from .state import AgentState
+from .utils import extract_code
 
 prompt = """You are tasked to generate a folder structure based on a technical document.
 The user will provide you a specific document with the requirements of the project, from this you must extract a struture folder.

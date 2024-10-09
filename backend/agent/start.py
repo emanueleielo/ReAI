@@ -1,8 +1,7 @@
 import json
-import re
 import os
-from backend.agent.model import _get_model
-from backend.agent.state import AgentState
+from .model import _get_model
+from .state import AgentState
 
 prompt = """You are tasked understand how to startup an application and write a documentation about it.
 The user will give you some information about the project and the code and you must understand how to use it.

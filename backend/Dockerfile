@@ -22,4 +22,4 @@ COPY . .
 ENV PYTHONPATH /backend
 
 
-CMD ["python", "server/app.py"]
+CMD ["python", "app.py"]

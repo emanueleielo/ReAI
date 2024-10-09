@@ -1,8 +1,3 @@
-import os
-
-from backend.agent.old_structure import EXCLUDED_FOLDERS
-from backend.agent.read import VALID_FILE_EXTENSIONS
-
 
 import os
 

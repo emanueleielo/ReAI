@@ -2,18 +2,18 @@ import os
 
 from langgraph.graph import Graph, MessagesState, StateGraph
 
-from backend.agent.documentation import write_documentation, rewrite_documentation
-from backend.agent.generate_structure import create_files_and_folders
-from backend.agent.new_structure import generate_new_structure, pretty_print_folder_structure
-from backend.agent.old_structure import create_folder_structure_text
-from backend.agent.read import describe_files_in_folder
-from backend.agent.requirements import generate_requirements_, generate_tech_requirements_
-from backend.agent.sequence_diagram import generate_diagram
-from backend.agent.start import write_startup
-from backend.agent.state import OutputState, AgentState, InputState
-from backend.agent.utils import write_file
+from .documentation import write_documentation, rewrite_documentation
+from .generate_structure import create_files_and_folders
+from .new_structure import generate_new_structure, pretty_print_folder_structure
+from .old_structure import create_folder_structure_text
+from .read import describe_files_in_folder
+from .requirements import generate_requirements_, generate_tech_requirements_
+from .sequence_diagram import generate_diagram
+from .start import write_startup
+from .state import OutputState, AgentState, InputState
+from .utils import write_file
 
-from backend.agent.write_code import write_code
+from .write_code import write_code
 
 import logging
 
@@ -106,7 +106,7 @@ def generate_files(state: AgentState) -> dict:
 
     current_directory = os.path.dirname(os.path.abspath(__file__))
     parent_directory = os.path.dirname(current_directory)
-    project_full_path = os.path.join(parent_directory, 'server', 'new_project')
+    project_full_path = os.path.join(parent_directory, 'new_project')
 
 
     print('GENERATED FILES', generated_files)

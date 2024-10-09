@@ -1,8 +1,8 @@
 import re
 import os
-from backend.agent.model import _get_model
-from backend.agent.state import AgentState
-from backend.agent.utils import extract_code
+from .model import _get_model
+from .state import AgentState
+from .utils import extract_code
 import os
 
 prompt = """You are tasked to write documentation as the user request.

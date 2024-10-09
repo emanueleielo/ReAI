@@ -1,5 +1,4 @@
 import functools
-import os
 from functools import lru_cache
 import time
 import requests

@@ -1,6 +1,6 @@
 from langchain_openai import ChatOpenAI
 
-from backend.agent.utils import get_env
+from .utils import get_env
 
 
 def _get_model():

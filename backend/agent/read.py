@@ -1,8 +1,8 @@
 import os
 
-from backend.agent.loader import load_github_file, load_pdf_file, read_file_content
-from backend.agent.model import _get_model
-from backend.agent.state import AgentState
+from .loader import load_github_file, load_pdf_file, read_file_content
+from .model import _get_model
+from .state import AgentState
 
 
 

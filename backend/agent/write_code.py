@@ -1,8 +1,8 @@
 import re
 import os
-from backend.agent.model import _get_model
-from backend.agent.state import AgentState
-from backend.agent.utils import extract_code
+from .model import _get_model
+from .state import AgentState
+from .utils import extract_code
 
 prompt = """You are tasked to generate code as the user request.
 The code that you must write must be contextualized, because this code belong to a big project and must work in relation with other file.

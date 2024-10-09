@@ -3,10 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 import os
 
-from backend.agent.agent_ import start_agent
-from backend.agent.loader import unzip_file
+from agent.agent_ import start_agent
+from agent.loader import unzip_file
 
-from backend.agent.loader import zip_project_folder
+from agent.loader import zip_project_folder
 
 
 app = FastAPI()
