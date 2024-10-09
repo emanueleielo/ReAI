@@ -1,9 +1,10 @@
 import os
 
-from agent.old_structure import EXCLUDED_FOLDERS
+from backend.agent.old_structure import EXCLUDED_FOLDERS
+from backend.agent.read import VALID_FILE_EXTENSIONS
 
 
-def create_files_and_folders(structure: dict, base_path='new_project'):
+def create_files_and_folders(structure: dict, base_path='new_project') -> list:
     """
     Recursively creates files and folders based on the given structure.
 
@@ -26,9 +27,9 @@ def create_files_and_folders(structure: dict, base_path='new_project'):
         # Construct the current path based on the base path and the current folder
         current_path = os.path.join(base_path, key)
 
-        # If the value is a list, it represents files inside the current directory
-        if isinstance(value, list):
-            # Process the files directly in the current folder (base_path)
+        # If the value is a list or the value is str and finish with VALID_FILE_EXTENSIONS, it represents files inside the current directory
+        if isinstance(value, list) or (isinstance(value, str) or value.endswith(tuple(VALID_FILE_EXTENSIONS))) or (
+                isinstance(value, dict) and 'files' in value and isinstance(value['files'], list)):            # Process the files directly in the current folder (base_path)
             for file_info in value:
                 if isinstance(file_info, dict):  # Ensure it's a dictionary representing a file
                     file_name = file_info['file_name']
@@ -57,4 +58,4 @@ def create_files_and_folders(structure: dict, base_path='new_project'):
             created_files.extend(create_files_and_folders(value, current_path))
 
     # Return the list of created files
-    return created_files, os.path.abspath(base_path)
+    return created_files

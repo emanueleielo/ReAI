@@ -1,8 +1,8 @@
 import os
 
-from agent.loader import load_github_file, load_pdf_file, read_file_content
-from agent.model import _get_model
-from agent.state import AgentState
+from backend.agent.loader import load_github_file, load_pdf_file, read_file_content
+from backend.agent.model import _get_model
+from backend.agent.state import AgentState
 
 
 
@@ -42,7 +42,7 @@ VALID_FILE_EXTENSIONS = ['.py', '.md', '.html', '.txt', '.js', '.css', '.json',
                          '.xml', '.yml', '.yaml', '.sh', '.cob', '.c', '.cpp', '.java', '.cs', '.php', '.rb', '.pl', '.sql',
                          '.swift', '.kt', '.go', '.ts', '.r', '.m', '.jl', '.hs', '.fs', '.fsx', '.fsi', '.clj',
                          '.cljs', '.cljc', '.edn', '.ex', '.exs', '.erl', '.hrl', '.lua', '.ml', '.mli', '.mll', '.mly',
-                         '.pas', '.dpr', '.dproj', '.lpr', '.lfm', '.lpi', '.lps', '.lfs']
+                         '.pas', '.dpr', '.dproj', '.lpr', '.lfm', '.lpi', '.lps', '.lfs', 'Dockerfile']
 
 
 def describe_files_in_folder(state: AgentState | str, file_descriptions: str = "") -> str:

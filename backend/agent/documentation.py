@@ -1,8 +1,8 @@
 import re
 import os
-from agent.model import _get_model
-from agent.state import AgentState
-from agent.utils import extract_code
+from backend.agent.model import _get_model
+from backend.agent.state import AgentState
+from backend.agent.utils import extract_code
 import os
 
 prompt = """You are tasked to write documentation as the user request.
@@ -59,7 +59,7 @@ def write_documentation(state: AgentState, files) -> str:
 
     # Iterate over the files
     for file in files:
-        if isinstance(file, dict):
+
             full_path = file['full_path']
             file_description = file['file_description']
 
@@ -134,9 +134,7 @@ def write_documentation(state: AgentState, files) -> str:
                 except Exception as e:
                     print(f"Error generating documentation for {full_path}: {e}")
                     continue
-        else:
-            print(f"Unexpected type for file: {type(file)}. {file} | Skipping...")
-            continue
+
 
 
     return full_documentation_text

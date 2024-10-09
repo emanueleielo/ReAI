@@ -23,7 +23,7 @@ services:
       dockerfile: Dockerfile
     container_name: backend_service
     environment:
-      - OPENAI_API_KEY= NO
+      - OPENAI_API_KEY=NO
       - TAVILY_API_KEY = NO
       - ANTHROPIC_API_KEY=NO
 

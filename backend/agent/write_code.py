@@ -1,8 +1,8 @@
 import re
 import os
-from agent.model import _get_model
-from agent.state import AgentState
-from agent.utils import extract_code
+from backend.agent.model import _get_model
+from backend.agent.state import AgentState
+from backend.agent.utils import extract_code
 
 prompt = """You are tasked to generate code as the user request.
 The code that you must write must be contextualized, because this code belong to a big project and must work in relation with other file.
@@ -62,7 +62,7 @@ def write_code(state: AgentState, files) -> str:
 
     # Iterate over the files
     for file in files:
-        if isinstance(file, dict):
+
             full_path = file['full_path']
             file_description = file['file_description']
 
@@ -102,9 +102,5 @@ def write_code(state: AgentState, files) -> str:
                 # Log the error but continue with the next file
                 print(f"Error generating or writing code for {full_path}: {e}")
                 continue  # Skip to the next file
-        else:
-            print(f"Unexpected type for file: {type(file)}. {file} | Skipping...")
-            continue
-
 
     return files

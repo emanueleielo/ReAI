@@ -2,18 +2,18 @@ import os
 
 from langgraph.graph import Graph, MessagesState, StateGraph
 
-from agent.documentation import write_documentation, rewrite_documentation
-from agent.generate_structure import create_files_and_folders
-from agent.new_structure import generate_new_structure, pretty_print_folder_structure
-from agent.old_structure import create_folder_structure_text
-from agent.read import describe_files_in_folder
-from agent.requirements import generate_requirements_, generate_tech_requirements_
-from agent.sequence_diagram import generate_diagram
-from agent.start import write_startup
-from agent.state import OutputState, AgentState, InputState
-from agent.utils import write_file
+from backend.agent.documentation import write_documentation, rewrite_documentation
+from backend.agent.generate_structure import create_files_and_folders
+from backend.agent.new_structure import generate_new_structure, pretty_print_folder_structure
+from backend.agent.old_structure import create_folder_structure_text
+from backend.agent.read import describe_files_in_folder
+from backend.agent.requirements import generate_requirements_, generate_tech_requirements_
+from backend.agent.sequence_diagram import generate_diagram
+from backend.agent.start import write_startup
+from backend.agent.state import OutputState, AgentState, InputState
+from backend.agent.utils import write_file
 
-from agent.write_code import write_code
+from backend.agent.write_code import write_code
 
 import logging
 
@@ -102,10 +102,17 @@ def generate_files(state: AgentState) -> dict:
     :param state:
     :return:
     """
-    generated_files, project_full_path = create_files_and_folders(state.get('new_structure'))
+    generated_files = create_files_and_folders(state.get('new_structure'))
+
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    parent_directory = os.path.dirname(current_directory)
+    project_full_path = os.path.join(parent_directory, 'server', 'new_project')
+
+
     print('GENERATED FILES', generated_files)
-    generated_files = write_code(state, generated_files)
-    documentation = write_documentation(state, generated_files)
+    written_files = write_code(state, generated_files)
+    print('WRITTEN FILES', written_files)
+    documentation = write_documentation(state, written_files)
     rewritten_documentation = rewrite_documentation(documentation)
     write_file('new_project/documentation.md', rewritten_documentation)
     return {"generated_files": generated_files, 'project_full_path': project_full_path}
@@ -159,4 +166,4 @@ async def start_agent(input: dict):
         if node == 'start_application_and_test':
             #get the value of the key
             project_full_path = update[node]['project_full_path']
-        yield '<node>' + node + '|' + project_full_path + ' + </node>'
+        yield '<node>' + node + '|' + project_full_path + '</node>'

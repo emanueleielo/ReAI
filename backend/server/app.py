@@ -3,10 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 import os
 
-from agent.agent_ import start_agent
-from agent.loader import unzip_file
+from backend.agent.agent_ import start_agent
+from backend.agent.loader import unzip_file
 
-from agent.loader import zip_project_folder
+from backend.agent.loader import zip_project_folder
 
 
 app = FastAPI()
@@ -63,7 +63,7 @@ async def upload_and_process(zip_file: UploadFile, tech_language: str = Form('Py
     # Return a streaming response to the client
     return StreamingResponse(start_agent(input=input_data), media_type="text/plain")
 
-@app.get("/download/")
+@app.post("/download/")
 async def download_project(folder_to_zip: str = Form('new_project')):
     """
     Endpoint to zip the 'new_project' folder and return it as a downloadable file.

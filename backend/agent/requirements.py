@@ -1,5 +1,5 @@
-from agent.model import _get_model
-from agent.state import AgentState
+from backend.agent.model import _get_model
+from backend.agent.state import AgentState
 
 prompt = """You are tasked with generate a not technical requirements document, your document should describe in a really deep way all the feature of the project.
 More detailed will be your documentation more easy will be for the user to understand the project.

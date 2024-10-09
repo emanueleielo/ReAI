@@ -1,6 +1,6 @@
 
-from agent.model import _get_model
-from agent.state import AgentState
+from backend.agent.model import _get_model
+from backend.agent.state import AgentState
 import os
 
 prompt = """You are tasked to generate a folder structure based on a technical document.
