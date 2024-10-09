@@ -160,10 +160,12 @@ app = graph.compile()
 async def start_agent(input: dict):
     project_full_path = ''
     async for update in app.astream(input=input, stream_mode="updates"):
-        #first key of dict
+        # First key of dict
         node = list(update.keys())[0]
         print(update)
         if node == 'start_application_and_test':
-            #get the value of the key
+            # Get the value of the key
             project_full_path = update[node]['project_full_path']
-        yield '<node>' + node + '|' + project_full_path + '</node>'
+            yield '<node>' + node + '|' + project_full_path + '</node>'
+        else:
+            yield '<node>' + node + '</node>'
