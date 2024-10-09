@@ -102,19 +102,21 @@ def generate_files(state: AgentState) -> dict:
     :param state:
     :return:
     """
-    generated_files = create_files_and_folders(state.get('new_structure'))
+    generated_files, project_full_path = create_files_and_folders(state.get('new_structure'))
+    print('GENERATED FILES', generated_files)
     generated_files = write_code(state, generated_files)
     documentation = write_documentation(state, generated_files)
     rewritten_documentation = rewrite_documentation(documentation)
     write_file('new_project/documentation.md', rewritten_documentation)
-    return {"generated_files": generated_files}
+    return {"generated_files": generated_files, 'project_full_path': project_full_path}
 
 
 def start_application_and_test(state: AgentState) -> dict:
     # Logic to start the application and test with a curl
     output = write_startup(state, state.get('generated_files'))
 
-    return {"output": output}
+    print('The project is fully generated and ready to be tested.')
+    return {"output": output, "project_full_path": state.get('project_full_path')}
 
 
 # Create the graph
@@ -149,8 +151,12 @@ app = graph.compile()
 
 
 async def start_agent(input: dict):
+    project_full_path = ''
     async for update in app.astream(input=input, stream_mode="updates"):
         #first key of dict
         node = list(update.keys())[0]
         print(update)
-        yield '<node>' + node + '</node>'
+        if node == 'start_application_and_test':
+            #get the value of the key
+            project_full_path = update[node]['project_full_path']
+        yield '<node>' + node + '|' + project_full_path + ' + </node>'

@@ -22,6 +22,7 @@ class AgentState(MessagesState):
     generated_files: list # This is the list of files that were generated
     unit_tests: list # This is the unit tests that were generated
     documentation: list # This is the documentation that was generated
+    project_full_path: str # This is the full path of the project
 
 
 class OutputState(MessagesState):

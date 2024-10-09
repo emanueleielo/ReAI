@@ -8,6 +8,7 @@ from agent.loader import unzip_file
 
 from agent.loader import zip_project_folder
 
+
 app = FastAPI()
 
 # Configure CORS Middleware (if needed for cross-origin requests)
@@ -63,15 +64,14 @@ async def upload_and_process(zip_file: UploadFile, tech_language: str = Form('Py
     return StreamingResponse(start_agent(input=input_data), media_type="text/plain")
 
 @app.get("/download/")
-async def download_project():
+async def download_project(folder_to_zip: str = Form('new_project')):
     """
     Endpoint to zip the 'new_project' folder and return it as a downloadable file.
 
     Returns:
     - StreamingResponse: The zipped folder as a downloadable file named 'new_project.zip'.
     """
-    # Define the folder to be zipped (always 'new_project')
-    folder_to_zip = "new_project"
+
 
     # Ensure the folder exists
     if not os.path.exists(folder_to_zip):

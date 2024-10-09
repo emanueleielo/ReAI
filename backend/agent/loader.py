@@ -115,18 +115,26 @@ import io
 
 def zip_project_folder(folder_path: str) -> str:
     """
-    Zips the contents of the folder and returns it as a BytesIO object along with the zip file name.
+    Zips the contents of the folder and returns it as a BytesIO object.
     The name of the zip file will be the same as the folder name being zipped.
 
     :param folder_path: Path to the folder to zip.
     :return: A tuple containing a BytesIO object of the zipped folder and the name of the zip file.
     """
+    # Assicurati che il percorso sia relativo alla directory superiore (../new_project)
+    folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', folder_path))
+
+    # Controlla se la cartella esiste, altrimenti lancia un'eccezione
+    if not os.path.exists(folder_path):
+        raise FileNotFoundError(f"The folder {folder_path} does not exist.")
+
     memory_file = io.BytesIO()
 
     folder_name = os.path.basename(os.path.normpath(folder_path))  # Get the folder name
     zip_file_name = f"{folder_name}.zip"  # Name the zip file based on the folder name
 
-    with zipfile.ZipFile(memory_file, 'w', zipfile.ZIP_DEFLATED) as zipf:
+    # Crea il file zip
+    with zipfile.ZipFile(memory_file, mode='w', compression=zipfile.ZIP_DEFLATED) as zipf:
         for root, dirs, files in os.walk(folder_path):
             for file in files:
                 file_path = os.path.join(root, file)
