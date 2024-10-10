@@ -5,7 +5,7 @@
         <i class="fa-solid fa-folder-open me-2"></i>
         Choose File to upload
       </h4>
-      <input #fileInput type="file" hidden (change)="handleFileChange($event)" [multiple]="false" />
+      <input #fileInput type="file" hidden (change)="handleFileChange($event)" [accept]="'.zip'" [multiple]="false" />
     </div>
     <small>Files Supported: ZIP</small>
   </div>
