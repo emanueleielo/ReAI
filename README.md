@@ -143,7 +143,7 @@ The response will be streamed back in real-time, showing the progress of the cod
 ReAI/
 ├── backend/
 │   ├── agent/
-│   │   ├── agent_.py  # AI logic using LangGraph and AgentLLM
+│   │   ├── agent_.py  # AI logic using LangGraph
 │   │   ├── new_structure.py  # Generates new folder structure for refactored code
 │   │   ├── write_code.py  # Handles code generation logic
 │   │   └── ...  
