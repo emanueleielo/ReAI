@@ -165,20 +165,20 @@ The GUI for ReAI is designed to be user-friendly and intuitive. Follow these ste
 ### Step 1: Upload Project Files
 In the first step, you will be prompted to provide details about the legacy project you wish to refactor. Here’s what you need to do:
 
-1. **Enter Description:** Provide a brief description of your project. This will help the AI understand the context of your project and generate the appropriate output.  
-   - **Example:** "Refactor a legacy COBOL application to Python following modern design patterns."
+1. **Select Stack:** Choose the target technology stack you want your project to be refactored into. This could be languages like Python, frameworks such as FastAPI, and other specifics.
+   - **Example:** "Python "
 
-2. **Select Stack Output:** Choose the target technology stack you want your project to be refactored into. This could be languages like Python, frameworks such as FastAPI, and other specifics.
-   - **Example:** "Python with FastAPI"
-
-3. **Design Pattern:** Specify the design pattern you want the refactored code to follow, such as the Repository Pattern.
+2. **Design Pattern:** Specify the design pattern you want the refactored code to follow, such as the Repository Pattern.
    - **Example:** "Repository Pattern"
 
-4. **Upload Your Project:** Upload a `.zip` file containing the source code of your legacy project.
+3. **Upload Your Project:** Upload a `.zip` file containing the source code of your legacy project.
 
-5. **Submit:** Once you've provided the necessary information, click the "Choose File to upload" button and proceed to the next step.
+4.**Other requirments:** Specify any additional technical requirements you have for the refactored project.
+   - **Example:** "Use MongoDB and generate tests"
 
-[SCREEN STEP 1]
+5.. **Submit:** Once you've provided the necessary information, click the "Choose File to upload" button and proceed to the next step.
+
+![img_1.png](img_1.png)
 
 ### Step 2: Processing Your Project
 After uploading the file and providing the required details, ReAI will start processing the legacy project. During this phase:
@@ -186,7 +186,7 @@ After uploading the file and providing the required details, ReAI will start pro
 1. You will see a progress bar indicating that the AI is analyzing the project and refactoring the code.
 2. Depending on the complexity of your project, this step may take a few moments as the AI generates the new code based on your selected technology stack, framework, and design pattern.
 
-[SCREEN STEP 2]
+![img_2.png](img_2.png)
 
 ### Step 3: Download Refactored Code
 Once the process is complete, you will be able to download the newly refactored project:
@@ -194,7 +194,7 @@ Once the process is complete, you will be able to download the newly refactored 
 1. The system will present a download button along with the size of the refactored project.
 2. Simply click "Download" to retrieve your new project files, which will follow the modern best practices you specified in Step 1.
 
-[SCREEN STEP 3]
+![img_3.png](img_3.png)
 
 This interface makes it easy for users to refactor legacy code into modern, maintainable formats by simply uploading a file and specifying the desired output stack.
 ---
