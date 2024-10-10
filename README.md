@@ -15,7 +15,6 @@ ReAI is a system powered by AI to refactor legacy code automatically. The projec
 9. License
 
 ---
-
 ## Project Overview
 
 ReAI is built using a microservice architecture. The project is split into two main components:

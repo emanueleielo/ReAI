@@ -31,6 +31,8 @@ async def upload_and_process(zip_file: UploadFile, tech_language: str = Form('Py
     """
     Endpoint to upload a .zip file, unzip it, and stream the state updates back to the client.
 
+    # WARNING: THIS API CAN WORK ONLY WITH 1 ZIP FILE AT A TIME.
+
     Parameters:
     - zip_file: The uploaded zip file containing the folder structure.
     - tech_language, tech_framework, design_pattern, other_requirements: Additional input parameters.
@@ -38,6 +40,17 @@ async def upload_and_process(zip_file: UploadFile, tech_language: str = Form('Py
     Returns:
     - StreamingResponse: A stream of updates, each update being the first key of the update dictionary.
     """
+    extract_path = "unzipped_folder" #Delete this folder (old one) and create a new one
+    if os.path.exists(extract_path):
+        os.rmdir(extract_path)
+    new_project_path = "new_project"
+    if os.path.exists(new_project_path):
+        os.rmdir(new_project_path)
+    temp_zipped = 'temp_uploaded_test.zip'
+    if os.path.exists(temp_zipped):
+        os.remove(temp_zipped)
+
+
     # Create a temporary directory to unzip the file
     extract_path = "unzipped_folder"
     if not os.path.exists(extract_path):
