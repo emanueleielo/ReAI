@@ -1,3 +1,5 @@
+import shutil
+
 from fastapi import FastAPI, UploadFile, Form, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
@@ -40,12 +42,12 @@ async def upload_and_process(zip_file: UploadFile, tech_language: str = Form('Py
     Returns:
     - StreamingResponse: A stream of updates, each update being the first key of the update dictionary.
     """
-    extract_path = "unzipped_folder" #Delete this folder (old one) and create a new one
+    extract_path = "unzipped_folder"  # Delete this folder (old one) and create a new one
     if os.path.exists(extract_path):
-        os.rmdir(extract_path)
+        shutil.rmtree(extract_path)
     new_project_path = "new_project"
     if os.path.exists(new_project_path):
-        os.rmdir(new_project_path)
+        shutil.rmtree(new_project_path)
     temp_zipped = 'temp_uploaded_test.zip'
     if os.path.exists(temp_zipped):
         os.remove(temp_zipped)

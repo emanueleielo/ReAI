@@ -19,7 +19,7 @@ The structure must be written in JSON format. AND YOU MUST ANSWER ONLY IN JSON F
   "root": {
     "FolderA": {
       "SubFolderA1": {
-        "SubSubFolderA1": [
+        "files": [
           {
             "file_name": "file1.txt",
             "file_description": "Text file in SubSubFolderA1"
@@ -32,7 +32,7 @@ The structure must be written in JSON format. AND YOU MUST ANSWER ONLY IN JSON F
       },
       "SubFolderA2": {
         "SubSubFolderA2": {
-          "SubSubSubFolderA1": [
+          "files": [
             {
               "file_name": "file3.md",
               "file_description": "Markdown file in SubSubSubFolderA1"
@@ -55,7 +55,7 @@ The structure must be written in JSON format. AND YOU MUST ANSWER ONLY IN JSON F
     },
     "FolderB": {
       "SubFolderB1": {
-        "SubSubFolderB1": [
+        "files": [
           {
             "file_name": "file6.css",
             "file_description": "CSS file in SubSubFolderB1"
@@ -65,12 +65,14 @@ The structure must be written in JSON format. AND YOU MUST ANSWER ONLY IN JSON F
             "file_description": "JSON file in SubSubFolderB1"
           }
         ],
-        "SubSubFolderB2": [
-          {
-            "file_name": "file8.txt",
-            "file_description": "Text file in SubSubFolderB2"
-          }
-        ]
+        "SubSubFolderB2": {
+          "files": [
+            {
+              "file_name": "file8.txt",
+              "file_description": "Text file in SubSubFolderB2"
+            }
+          ]
+        }
       },
       "files": [
         {
@@ -90,7 +92,7 @@ The structure must be written in JSON format. AND YOU MUST ANSWER ONLY IN JSON F
 </structure_json>
 IMPORTANT: REMEMBER TO ANSWER ONLY WITH THE JSON, DO NOT ADD ANY OTHER INFORMATION.
 IMPORTANT: REMEMBER THE DESCRIPTION MUST BE ACCURATE.
-
+IMPORTANT: YOU MUST RESPECT THE STRUCTURE OF THE JSON GIVEN AS EXAMPLE.
 
 EXAMPLE
 ```json
@@ -110,6 +112,7 @@ Technical requirements:
 
 Tech language: <tech_language>{TECH_LANGUAGE}</tech_language>
 Tech framework: <tech_framework>{TECH_FRAMEWORK}</tech_framework>
+
 """
 
 

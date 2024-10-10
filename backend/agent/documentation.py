@@ -108,6 +108,7 @@ The user will give a documentation that must be re-written in a more professiona
 Probably the user will give you the path of each file that is documented, you must keep this part of the path and link to the real file.
 
 Please generate this documentation using .md syntax.
+IMPORTANT: Use only the markdown syntax there is no reason to start your output with '```markdown' or '```' at the end. <- IMPORTANT.
 """
 
 prompt_user_2 = """Rewrite the documentation:
